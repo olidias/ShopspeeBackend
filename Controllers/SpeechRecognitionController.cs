@@ -22,7 +22,7 @@ namespace ShopspeeBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> PostSpeechSnippet(byte[] snippet)
         {
-	        return Ok(await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(null));
+	        return Ok(await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippet));
         }
 
         [HttpGet]
