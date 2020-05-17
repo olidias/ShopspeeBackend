@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,21 @@ namespace ShopspeeBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            if (string.Equals(
+                Environment.GetEnvironmentVariable("ASPNETCORE_FORWARDEDHEADERS_ENABLED"), 
+                "true", StringComparison.OrdinalIgnoreCase))
+            {
+                services.Configure<ForwardedHeadersOptions>(options =>
+                {
+                    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | 
+                        ForwardedHeaders.XForwardedProto;
+                    // Only loopback proxies are allowed by default.
+                    // Clear that restriction because forwarders are enabled by explicit 
+                    // configuration.
+                    options.KnownNetworks.Clear();
+                    options.KnownProxies.Clear();
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
