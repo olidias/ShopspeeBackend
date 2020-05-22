@@ -20,8 +20,12 @@ namespace ShopspeeBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> PostSpeechSnippet(byte[] snippet)
+        public async Task<ActionResult<string>> PostSpeechSnippet(string base64snippet)
         {
+            if(string.IsNullOrEmpty(base64snippet)) return new StatusCodeResult(400);
+
+            Console.WriteLine($"Received base 64 encoded bytes: {base64snippet}");
+            var snippet = Convert.FromBase64String(base64snippet);
 	        return Ok(await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippet));
         }
 
