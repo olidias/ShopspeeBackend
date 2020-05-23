@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ShopspeeBackend.Services;
+using ShopspeeBackend.Model;
 
 namespace ShopspeeBackend.Controllers
 {
@@ -20,16 +21,16 @@ namespace ShopspeeBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> Post([FromBody] byte[] snippetData)
+        public async Task<ActionResult<string>> Post([FromBody] VoiceSnippet snippetData)
         {
-            Console.WriteLine($"Got request post with length {snippetData?.Length}");
-            if (snippetData == null || snippetData.Length < 1) return new StatusCodeResult(400);
+            Console.WriteLine($"Got request post with length {snippetData?.Data?.Length}");
+            if (snippetData == null || snippetData.Data == null || snippetData.Data.Length < 1) return new StatusCodeResult(400);
             string result;
             try
             {
-                Console.WriteLine($"Received bytes: {snippetData.Length}");
-                // var snippet = Convert.FromBase64String(base64SnippetData);
-                result = await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippetData);
+                Console.WriteLine($"Received bytes: {snippetData.Data.Length}");
+                var snippet = Convert.FromBase64String(snippetData.Data);
+                result = await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippet);
             }
             catch(Exception ex)
             {
