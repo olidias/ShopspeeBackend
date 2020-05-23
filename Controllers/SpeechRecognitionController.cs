@@ -22,7 +22,7 @@ namespace ShopspeeBackend.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Post(byte[] snippetData)
         {
-            Console.WriteLine("Got request post");
+            Console.WriteLine($"Got request post with length {snippetData?.Length}");
             if (snippetData == null || snippetData.Length < 1) return new StatusCodeResult(400);
             string result;
             try
