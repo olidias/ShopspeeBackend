@@ -2,6 +2,6 @@ namespace ShopspeeBackend.Model
 {
     public class VoiceSnippet
     {
-        public string Data { get; set; }
+        public byte[] Data { get; set; }
     }
 }

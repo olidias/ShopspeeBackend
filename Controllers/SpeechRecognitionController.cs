@@ -29,8 +29,8 @@ namespace ShopspeeBackend.Controllers
             try
             {
                 Console.WriteLine($"Received bytes: {snippetData.Data.Length}");
-                var snippet = Convert.FromBase64String(snippetData.Data);
-                result = await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippet);
+                // var snippet = Convert.FromBase64String(snippetData.Data);
+                result = await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippetData.Data);
             }
             catch(Exception ex)
             {
