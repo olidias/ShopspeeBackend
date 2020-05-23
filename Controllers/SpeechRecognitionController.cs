@@ -20,16 +20,16 @@ namespace ShopspeeBackend.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> Post(byte[] snippetData)
+        public async Task<ActionResult<string>> Post(string base64SnippetData)
         {
-            Console.WriteLine($"Got request post with length {snippetData?.Length}");
-            if (snippetData == null || snippetData.Length < 1) return new StatusCodeResult(400);
+            Console.WriteLine($"Got request post with length {base64SnippetData?.Length}");
+            if (base64SnippetData == null || base64SnippetData.Length < 1) return new StatusCodeResult(400);
             string result;
             try
             {
-                Console.WriteLine($"Received bytes: {snippetData.Length}");
-                // var snippet = Convert.FromBase64String(base64snippet);
-                result = await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippetData);
+                Console.WriteLine($"Received bytes: {base64SnippetData.Length}");
+                var snippet = Convert.FromBase64String(base64SnippetData);
+                result = await new DeepSpeechRecognitionService().RecogniseVoiceSnippet(snippet);
             }
             catch(Exception ex)
             {
