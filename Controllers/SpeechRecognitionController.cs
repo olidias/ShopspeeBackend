@@ -10,6 +10,7 @@ namespace ShopspeeBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Produces("application/bson")]
     public class SpeechRecognitionController : ControllerBase
     {
         private readonly ILogger<SpeechRecognitionController> _logger;
