@@ -10,7 +10,6 @@ namespace ShopspeeBackend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Produces("application/bson")]
     public class SpeechRecognitionController : ControllerBase
     {
         private readonly ILogger<SpeechRecognitionController> _logger;
@@ -24,7 +23,7 @@ namespace ShopspeeBackend.Controllers
         public async Task<ActionResult<string>> Post(byte[] snippetData)
         {
             Console.WriteLine("Got request post");
-            if(snippetData.Length < 1) return new StatusCodeResult(400);
+            if (snippetData == null || snippetData.Length < 1) return new StatusCodeResult(400);
             string result;
             try
             {
