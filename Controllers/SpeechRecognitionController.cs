@@ -26,6 +26,7 @@ namespace ShopspeeBackend.Controllers
             Console.WriteLine($"Got request post with length {snippetData?.Data?.Length}");
             if (snippetData == null || snippetData.Data == null || snippetData.Data.Length < 1) return new StatusCodeResult(400);
             string result;
+            Console.WriteLine($"Hex string of param: {BitConverter.ToString(snippetData.Data).Replace("-","")}");
             try
             {
                 Console.WriteLine($"Received bytes: {snippetData.Data.Length}");
